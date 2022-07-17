@@ -1,24 +1,36 @@
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography,
+} from '@mui/material';
 import React from 'react';
 
 export const GoodsItem = (props) => {
-  const { name, price, setOrder } = props;
+  const { name, price, setOrder, poster } = props;
 
   return (
-    <div className="col-12 col-md-6 px-md-2">
-      <div className="card">
-        <img
-          src={`https://via.placeholder.com/300x150.png?text=${name.slice(
-            0,
-            12
-          )}`}
-          className="card-img-top"
+    <Grid item xs={12} md={4} sm={6}>
+      <Card sx={{height: '100%'}}>
+        <CardMedia
+          component="img"
+          image={poster}
           alt={name}
+          title={name}
+          sx={{ height: 140, objectFit: 'cover' }}
         />
-        <div className="card-body">
-          <h5 className="card-title">{name}</h5>
-          <p className="card-text">Цена: {price} руб.</p>
-          <button
-            className="btn btn-primary"
+        <CardContent>
+          <Typography variant="h6" component="h3">
+            {name}
+          </Typography>
+          <Typography variant="body1">Цена: {price} руб.</Typography>
+        </CardContent>
+        <CardActions>
+          <Button
+            variant="text"
             onClick={() =>
               setOrder({
                 id: props.id,
@@ -28,9 +40,9 @@ export const GoodsItem = (props) => {
             }
           >
             Купить
-          </button>
-        </div>
-      </div>
-    </div>
+          </Button>
+        </CardActions>
+      </Card>
+    </Grid>
   );
 };
