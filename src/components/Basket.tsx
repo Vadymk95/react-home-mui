@@ -30,7 +30,7 @@ export const Basket: FC<BasketProps> = ({
 }) => {
   return (
     <Drawer anchor="right" open={cartOpen} onClose={() => closeCart()}>
-      <List sx={{ width: '400px' }}>
+      <List sx={{ maxWidth: '400px', minWidth: '250px' }}>
         <ListItem>
           <ListItemIcon>
             <ShoppingBasket />
