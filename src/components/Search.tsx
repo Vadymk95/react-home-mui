@@ -1,8 +1,13 @@
+import React, { ChangeEvent, FC } from 'react';
+
 import { TextField } from '@mui/material';
 
-export const Search = (props) => {
-  const { onChange, value } = props;
+type SearchProps = {
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+};
 
+export const Search: FC<SearchProps> = ({ onChange, value }) => {
   return (
     <TextField
       type="search"

@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { AppBar, Toolbar, Badge, Typography, IconButton } from '@mui/material';
 import { ShoppingBasket } from '@mui/icons-material';
 
-export const Header = (props) => {
-  const { handleCart, orderLen } = props;
+type HeaderProps = {
+  handleCart: () => void;
+  orderLen: number;
+};
+
+export const Header: FC<HeaderProps> = ({ handleCart, orderLen }) => {
   return (
     <AppBar position="static">
       <Toolbar>

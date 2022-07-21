@@ -1,4 +1,7 @@
+import React, { FC } from 'react';
+
 import {
+  CloseReason,
   Divider,
   Drawer,
   List,
@@ -8,29 +11,35 @@ import {
   Typography,
 } from '@mui/material';
 import { ShoppingBasket } from '@mui/icons-material';
-import React from 'react';
+
 import { BasketItem } from './BasketItem';
+import { IOrderedBook } from '../models/OrderedBook';
 
-export const Basket = (props) => {
-  const {
-    cartOpen,
-    closeCart = Function.prototype,
-    order = [],
-    removeFromOrder,
-  } = props;
+type BasketProps = {
+  cartOpen: boolean;
+  closeCart: (event: object, reason: CloseReason) => void;
+  order: IOrderedBook[];
+  removeFromOrder: (id: string) => void;
+};
 
+export const Basket: FC<BasketProps> = ({
+  cartOpen,
+  closeCart = Function.prototype,
+  order,
+  removeFromOrder,
+}) => {
   return (
-    <Drawer anchor="right" open={cartOpen} onClose={closeCart}>
+    <Drawer anchor="right" open={cartOpen} onClose={() => closeCart()}>
       <List sx={{ width: '400px' }}>
         <ListItem>
           <ListItemIcon>
             <ShoppingBasket />
           </ListItemIcon>
-          <ListItemText primary="Корзина" />
+          <ListItemText primary="Basket" />
         </ListItem>
         <Divider />
         {!order.length ? (
-          <ListItem>Корзина пуста!</ListItem>
+          <ListItem>Basket is empty!</ListItem>
         ) : (
           <>
             {order.map((item) => (
@@ -43,11 +52,11 @@ export const Basket = (props) => {
             <Divider />
             <ListItem>
               <Typography sx={{ fontWeight: 700 }}>
-                Общая стоимость:{' '}
+                Total cost:{' '}
                 {order.reduce((acc, item) => {
-                  return acc + item.price * item.quantity;
+                  return acc + item.price * item.quantity!;
                 }, 0)}{' '}
-                рублей.
+                &#36;.
               </Typography>
             </ListItem>
           </>
